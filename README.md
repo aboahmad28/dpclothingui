@@ -2,7 +2,7 @@
 
 Modern and elegant clothing menu for FiveM servers with a sleek dark theme.
 
-[![YouTube](https://img.shields.io/badge/YouTube-Watch%20Preview-red?style=for-the-badge&logo=youtube)](https://youtu.be/oSpAfaGKz8s)
+[![YouTube](https://img.shields.io/badge/YouTube-Watch%20Preview-red?style=for-the-badge&logo=youtube)](https://youtu.be/Dr5SIaQNirY)
 [![Discord](https://img.shields.io/badge/Discord-Join%20Server-7289DA?style=for-the-badge&logo=discord)](https://discord.gg/ewy2JmekUw)
 
 ---
@@ -62,7 +62,7 @@ Config = {
 
 ## 📺 Preview
 
-Watch the full preview on YouTube: [https://youtu.be/oSpAfaGKz8s](https://youtu.be/oSpAfaGKz8s)
+Watch the full preview on YouTube: [https://youtu.be/oSpAfaGKz8s](https://youtu.be/Dr5SIaQNirY)
 
 ---
 
@@ -71,7 +71,7 @@ Watch the full preview on YouTube: [https://youtu.be/oSpAfaGKz8s](https://youtu.
 **Coast Side Dev - aboahmad**
 
 - Discord Server: [https://discord.gg/ewy2JmekUw](https://discord.gg/ewy2JmekUw)
-- YouTube: [https://youtu.be/oSpAfaGKz8s](https://youtu.be/oSpAfaGKz8s)
+- YouTube: [https://youtu.be/oSpAfaGKz8s](https://youtu.be/Dr5SIaQNirY)
 
 ---
 
