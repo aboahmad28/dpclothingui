@@ -1,0 +1,790 @@
+/*
+ * ==========================================
+ * Coast Side Dev - aboahmad
+ * Discord: https://discord.gg/ewy2JmekUw
+ * ==========================================
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    background: transparent;
+}
+
+/* ==================== CLOTHING MENU - MODERN DARK THEME ==================== */
+
+/* Main Container */
+.clothing-menu {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.clothing-menu.active {
+    display: block;
+    pointer-events: all;
+}
+
+/* Sidebar Background Overlay */
+.sidebar::before {
+    content: '';
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 50vw;
+    height: 100vh;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(20, 20, 20, 0.452) 40%, rgba(32, 32, 32, 0.76) 70%, rgba(32, 32, 32, 0.986) 100%);
+    pointer-events: none;
+    z-index: -1;
+    transform: translateX(30%);
+    opacity: 0;
+    transition: all 0.25s ease-out;
+}
+
+.clothing-menu.active .sidebar::before {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    transform: translateX(100%);
+    width: min-content;
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 25px;
+    opacity: 0;
+    transition: all 0.25s ease-out;
+}
+
+.clothing-menu.active .sidebar {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Category Section */
+.category-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid #ff0062;
+    padding-right: 3vh;
+}
+
+.category-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: #ff0062;
+    text-transform: uppercase;
+    padding: 0 5px;
+    margin-bottom: 5px;
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.clothing-menu.active .category-label {
+    animation: slideInLabel 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Icon Grid */
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+/* Icon Box */
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+/* Tooltip */
+.icon-box::after {
+    content: attr(title);
+    position: absolute;
+    left: -10px;
+    transform: translateX(-100%);
+    background: rgba(32, 32, 32, 0.95);
+    color: #FFFFFF;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    border: 1px solid #ff0062;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.icon-box:hover::after {
+    opacity: 1;
+}
+
+.clothing-menu.active .icon-box {
+    animation: slideInIcon 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.icon-box i {
+    font-size: 16px;
+    color: #FFFFFF;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover State */
+.icon-box:hover {
+    transform: scale(1.1);
+    background: #2a2a2a;
+}
+
+.icon-box:hover i {
+    color: #ff0062;
+}
+
+/* Active State */
+.icon-box.active {
+    background: #ff0062;
+}
+
+.icon-box.active i {
+    color: #202020;
+}
+
+/* Close Button */
+.close-button {
+    width: 45px;
+    height: 45px;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: 15px auto 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateX(-30px);
+}
+
+.clothing-menu.active .close-button {
+    animation: slideInIcon 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s forwards;
+}
+
+.close-button i {
+    font-size: 18px;
+    color: #FFFFFF;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    background: #ff0062;
+    transform: scale(1.1);
+}
+
+.close-button:hover i {
+    color: #202020;
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+/* Staggered Slide-in for Labels */
+@keyframes slideInLabel {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Staggered Slide-in for Icons */
+@keyframes slideInIcon {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Stagger Delays for Each Category */
+.category-section:nth-child(1) .category-label {
+    animation-delay: 0.1s;
+}
+
+.category-section:nth-child(1) .icon-box:nth-child(1) {
+    animation-delay: 0.15s;
+}
+
+.category-section:nth-child(1) .icon-box:nth-child(2) {
+    animation-delay: 0.18s;
+}
+
+.category-section:nth-child(1) .icon-box:nth-child(3) {
+    animation-delay: 0.21s;
+}
+
+.category-section:nth-child(1) .icon-box:nth-child(4) {
+    animation-delay: 0.24s;
+}
+
+.category-section:nth-child(1) .icon-box:nth-child(5) {
+    animation-delay: 0.27s;
+}
+
+.category-section:nth-child(2) .category-label {
+    animation-delay: 0.3s;
+}
+
+.category-section:nth-child(2) .icon-box:nth-child(1) {
+    animation-delay: 0.33s;
+}
+
+.category-section:nth-child(2) .icon-box:nth-child(2) {
+    animation-delay: 0.36s;
+}
+
+.category-section:nth-child(2) .icon-box:nth-child(3) {
+    animation-delay: 0.39s;
+}
+
+.category-section:nth-child(2) .icon-box:nth-child(4) {
+    animation-delay: 0.42s;
+}
+
+.category-section:nth-child(2) .icon-box:nth-child(5) {
+    animation-delay: 0.45s;
+}
+
+.category-section:nth-child(3) .category-label {
+    animation-delay: 0.48s;
+}
+
+.category-section:nth-child(3) .icon-box:nth-child(1) {
+    animation-delay: 0.51s;
+}
+
+.category-section:nth-child(3) .icon-box:nth-child(2) {
+    animation-delay: 0.54s;
+}
+
+.category-section:nth-child(3) .icon-box:nth-child(3) {
+    animation-delay: 0.57s;
+}
+
+.category-section:nth-child(3) .icon-box:nth-child(4) {
+    animation-delay: 0.60s;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Disable Text Selection */
+.clothing-menu * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.selectnone {
+    -webkit-touch-callout: none; 
+      -webkit-user-select: none; 
+       -khtml-user-select: none; 
+         -moz-user-select: none; 
+          -ms-user-select: none; 
+              user-select: none;
+}
+
+.f9clothigthemenu{
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 5px;
+    top: 0;
+    transform: rotate(180deg);
+}
+
+.f9clothingmenu{
+    display: none;
+}
+
+.clothingbuttons{
+    position: absolute;
+    z-index: 100;
+}
+
+.clothingbutton{
+    display: flex;
+}
+
+.clothingbutton > img{
+    transform: scale(0.7);
+}
+
+.clothingbutton:hover{
+    transform: scale(1.1), rotate(360deg);
+    border: 3px solid #1998bd;
+}
+
+.clothingcircle{
+    position: relative;
+    width: 44vh;
+    height: 44vh;
+    border-right: 8px solid #000000ba;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid #ff000000;
+    border-left: 8px solid #ff000000;
+   
+}
+
+.f9flexdiv1{
+    position: relative;
+    width: 104vh;
+    height: 47vh;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.f9flexdiv2{
+    position: relative;
+    width: 33.6vh;
+    height: 46.2vh;
+    height: 46vh;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.f9flexdiv3{
+    position: relative;
+    width: 72vh;
+    height: 45.5vh;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+.f9onetitle{
+    position: relative;
+    height: 2vh;
+    width: 6vh;
+    font-family: sans-serif;
+    FONT-WEIGHT: 600;
+    background: #020202ed;
+    border-radius: 1vh;
+    text-align: center;
+    color: #e6013e;
+    font-size: 1.3vh;
+    line-height: 2vh;
+    transform: rotate(-180deg);
+}
+
+
+.f9refreshside{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.f9divcircle1{
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    background: #000000;
+    border-radius: 3vh;
+}
+
+.f9divcircle2{
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    background: #000000;
+    border-radius: 3vh;
+    left: 5vh;
+}
+
+.f9divcircle3{
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    background: #000000;
+    border-radius: 3vh;
+    left: 6.4vh;
+}
+
+.f9divcircle4{
+    position: relative;
+    width: 1.4vh;
+    height: 1.4vh;
+    background: #000000;
+    border-radius: 3vh;
+    left: 5vh;
+}
+
+
+.listsline1{
+    position: relative;
+    width: 35.4vh;
+    height: 0.5vh;
+    background: #000000ba;
+    border-radius: 5vh;
+}
+
+.listsline2{
+    position: relative;
+    width: 31vh;
+    height: 0.5vh;
+    background: #000000ba;
+    border-radius: 5vh;
+}
+
+.listsline3{
+    position: relative;
+    width: 29vh;
+    height: 0.5vh;
+    background: #000000ba;
+    border-radius: 5vh;
+}
+
+.listsline4{
+    position: relative;
+    width: 31vh;
+    height: 0.5vh;
+    background: #000000ba;
+    border-radius: 5vh;
+}
+
+.listsline5{
+    position: relative;
+    width: 35.4vh;
+    height: 0.5vh;
+    background: #000000ba;
+    border-radius: 5vh;
+}
+
+.circleimg{
+    position: absolute;
+}
+
+.blackcircle{
+    position: absolute;
+
+    background: #0e0e0efa;
+    width: 200px;
+    height: 100px; /* as the half of the width */
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border: 3px solid white;
+    border-bottom: 0;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    left: -40px;
+      transform: rotate(90deg);
+
+}
+.blackcircle2{
+    position: absolute;
+
+    background: #0e0e0efa;
+    width: 200px;
+    height: 100px; /* as the half of the width */
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border: 3px solid #e6013e;
+    border-bottom: 0;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    right: -39px;
+      transform: rotate(270deg);
+
+}
+.desccircle{
+    position: absolute;
+    height: 160px;
+    width: 160px;
+    background: #0e0e0efa;
+   
+    display: inline-block;
+    border: 2px solid #1998bd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column-reverse;
+
+}
+
+.closeline{
+    position: absolute;
+    width: 0.6vh;
+    height: 3.3vh;
+    background: #0e0e0efa;
+    bottom: -8vh;
+    border-radius: 7vh;
+    left: 4vh;
+    transform: rotate(-45deg);
+
+}
+
+.closebutton{
+    position: absolute;
+    width: 4vh;
+    height: 4vh;
+    background: #0e0e0efa;
+    bottom: -11.0vh;
+    border-radius: 4vh;
+    border: 2px solid #e6013e;
+    left: 3.7vh;
+    
+}
+
+.resetline{
+    position: absolute;
+    background: #0a0a0a;
+    width: 0.4vh;
+    height: 3vh;
+    bottom: 7vh;
+
+}
+
+
+.clothingdes{
+    position: relative;
+    font-family: 'Baloo Bhaijaan 2', cursive;
+    color: #e6013e;
+    font-weight: bold;
+}
+
+
+.custom-control, .custom-switch, .custom-control-input {
+    color: #e6013e
+}
+
+.resettbutton {
+    color:#e6013e;
+    font-size: 2vh;
+}
+
+.closebuttonn {
+    position: absolute;
+    bottom: 0.7vh;
+    left: 1.3vh;
+    color:#e6013e;
+    font-size: 2.4vh;
+}
+
+
+.clothingimage{
+    position: relative;
+    width: 4.75vh;
+}
+
+.circlebutton1{
+    position: absolute;
+    width: 11vh;
+    height: 17vh;
+    overflow: hidden;
+    left: 3.75vh;
+    z-index: 100;
+}
+
+.isnidecirclebutton1{
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    background: rgba(14, 14, 14, 0.98);
+   
+    right: 7vh;
+    top: 8px;
+    border: 2px solid rgba(0, 145, 182, 0.855);
+}
+
+
+.circlebutton2{
+    position: absolute;
+    width: 11vh;
+    height: 17vh;
+    overflow: hidden;
+    left: -14.25vh;
+    z-index: 100;
+}
+
+.isnidecirclebutton2{
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    background: rgba(14, 14, 14, 0.98);
+   
+    right: -11vh;
+    top: 8px;
+    border: 2px solid rgba(0, 145, 182, 0.855);
+}
+
+.circlebutton1:hover .isnidecirclebutton1{
+    border: 2px solid rgba(200, 200, 200, 0.855);
+}
+
+.circlebutton2:hover .isnidecirclebutton2{
+    border: 2px solid rgba(200, 200, 200, 0.855);
+}
+
+.criclebuttoning{
+    position: absolute;
+    height: 160px;
+    width: 142px;
+    display: flex;
+    justify-content: space-between;
+   
+    right: 38.55vh;
+    top: 42.5vh;
+    z-index: 1000;
+    align-items: center;
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.criclebuttonicon{
+    position: relative;
+    color: #e6013e;
+    font-size: 1.7vh;
+    pointer-events: none;
+}
+
+
+@keyframes refreshhud {
+	0% {
+		transform: rotate(0)
+	}
+	10% {
+		transform: rotate(40deg)
+	}
+	20% {
+		transform: rotate(80deg)
+	}
+	30% {
+		transform: rotate(120deg)
+	}
+	40% {
+		transform: rotate(160deg)
+	}
+	50% {
+		transform: rotate(200deg)
+	}
+	60% {
+		transform: rotate(240deg)
+	}
+	70% {
+		transform: rotate(280deg)
+	}
+	80% {
+		transform: rotate(320deg)
+	}
+
+}
+
+.f9onediv{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.listofbuttonsx{
+    position: relative;
+    width: 106vh;
+    height: 43.5vh;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.buttnonslist{
+    position: relative;
+    height: 4vh;
+    width: 15vh;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+
+.onecbutton{
+    position: relative;
+    width: 4vh;
+    height: 4vh;
+    background: radial-gradient(circle, #0c0c0c 50%, #0c0c0c 35%, #0c0c0c 100%);
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    font-size: 1.5vh;
+    text-align: center;
+    line-height: 4vh;
+    color: #e0e0e0a6;
+    font-family: sans-serif;
+    margin-right: 10px;
+    transform: rotate(-180deg);
+    overflow: hidden;
+}
+
+.onecbutton > img{
+    width: 95%;
+}
+
+.onecbutton:hover{
+    transform: rotate(-180deg) scale(1.12);
+}
+
+.listofhomebuttins{
+    position: relative;
+    width: 25%;
+    height: 101.65%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+    z-index: 7;
+}
